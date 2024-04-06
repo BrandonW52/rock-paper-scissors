@@ -19,10 +19,14 @@ function getPlayerChoice() {
 
     playerChoice = playerChoice.toLocaleLowerCase;
     check = validateInput(playerChoice);
+
     return check;
   }
 
-  //   return playerChoice;
+  // if (check === true) {
+  //   getComputerChoice();
+  // }
+  return playerChoice;
 }
 
 function validateInput(choice) {
@@ -49,9 +53,26 @@ function getComputerChoice() {
   return computerChoice;
 }
 
+function checkWinner(choiceP, choiceC) {
+  if (choiceP === choiceC) {
+    return "Tie";
+  } else if (
+    (choiceP === "rock" && choiceC === "scissors") ||
+    (choiceP === "paper" && choiceC === "rock") ||
+    (choiceP === "scissors" && choiceC === "paper")
+  ) {
+    return "Player";
+  } else {
+    return "Computer";
+  }
+}
+
 function playRound() {
   getPlayerChoice();
   getComputerChoice();
+  console.log(computerChoice);
+  const winner = checkWinner(playerChoice, computerChoice);
+  console.log(winner);
 }
 
 playRound();
