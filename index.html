@@ -6,27 +6,43 @@
 
     <link
       rel="stylesheet"
-      href="path/to/font-awesome/css/font-awesome.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Tilt+Neon&display=swap"
+      rel="stylesheet"
     />
 
     <title>Rock Paper Scissors</title>
   </head>
   <body>
-    <header></header>
-
     <main>
       <div class="container">
         <h1>Rock Paper Scissors</h1>
-        <button>Start Game</button>
-        <div class="place-hold">
-          <div><i class="fa fa-hand-rock-o" aria-hidden="true"></i></div>
-          <div><i class="fa fa-hand-paper-o" aria-hidden="true"></i></div>
-          <div><i class="fa fa-hand-scissors-o" aria-hidden="true"></i></div>
+        <button id="gameControl" class="play">Start Game</button>
+        <h2 id="gameState">Start Game:</h2>
+        <div class="selection-container">
+          <button id="rock" class="hand" disabled>
+            <i class="fa fa-hand-rock-o" aria-hidden="true"></i>
+          </button>
+          <button id="paper" class="hand" disabled>
+            <i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+          </button>
+          <button id="scissors" class="hand" disabled>
+            <i class="fa fa-hand-scissors-o" aria-hidden="true"></i>
+          </button>
+          <div class="results">
+            <h3>Player Rounds Won:<span id="playerRoundWins"> 0</span></h3>
+            <h3>Computer Rounds Won:<span id="computerRoundWins"> 0</span></h3>
+            <h3>Ties:<span id="tiesRoundWins"> 0</span></h3>
+          </div>
         </div>
       </div>
     </main>
 
-    <footer></footer>
     <script src="scripts.js"></script>
   </body>
 </html>
