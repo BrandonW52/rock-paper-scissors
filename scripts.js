@@ -4,7 +4,7 @@ const winners = [];
 
 function getPlayerChoice() {
   playerChoice = prompt("Type: Rock, Paper, Scissors");
-  while (playerChoice === null) {
+  while (playerChoice === null || "") {
     playerChoice = prompt("Type: Rock, Paper, Scissors");
   }
 
@@ -14,7 +14,7 @@ function getPlayerChoice() {
   while (check == false) {
     playerChoice = prompt("unexpected item in the baggage area");
 
-    while (playerChoice == null) {
+    while (playerChoice == null || "") {
       playerChoice = prompt("Type: Rock, Paper, Scissors");
     }
 
@@ -111,5 +111,3 @@ function game() {
   }
   logWins();
 }
-
-game();
