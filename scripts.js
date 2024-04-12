@@ -3,43 +3,20 @@ let playerChoice = "";
 const winners = [];
 
 function getPlayerChoice() {
-  playerChoice = prompt("Type: Rock, Paper, Scissors");
-  while (playerChoice === null || "") {
-    playerChoice = prompt("Type: Rock, Paper, Scissors");
-  }
+  const rock = document.querySelector("#rockPlayer");
+  rock.addEventListener("click", () => {
+    playerChoice = "rock";
+  });
 
-  playerChoice = playerChoice.toLocaleLowerCase();
-  let check = validateInput(playerChoice);
+  const paper = document.querySelector("#paperPlayer");
+  paper.addEventListener("click", () => {
+    playerChoice = "paper";
+  });
 
-  while (check == false) {
-    playerChoice = prompt("unexpected item in the baggage area");
-
-    while (playerChoice == null || "") {
-      playerChoice = prompt("Type: Rock, Paper, Scissors");
-    }
-
-    playerChoice = playerChoice.toLocaleLowerCase;
-    check = validateInput(playerChoice);
-
-    return check;
-  }
-
-  // if (check === true) {
-  //   getComputerChoice();
-  // }
-  return playerChoice;
-}
-
-function validateInput(choice) {
-  if (
-    "rock".includes(choice) ||
-    "paper".includes(choice) ||
-    "scissors".includes(choice)
-  ) {
-    return true;
-  } else {
-    return false;
-  }
+  const scissors = document.querySelector("#scissorsPlayer");
+  scissors.addEventListener("click", () => {
+    playerChoice = "scissors";
+  });
 }
 
 function getComputerChoice() {
@@ -106,8 +83,25 @@ function logWins() {
 }
 
 function game() {
+  unlock();
   for (i = 1; i <= 5; i++) {
     playRound(i);
   }
   logWins();
+}
+
+document.getElementById("gameControl").addEventListener("click", game);
+
+function unlock() {
+  document.getElementById("rockPlayer").disabled = false;
+  document.getElementById("rockPlayer").classList.remove("btn-disable");
+  document.getElementById("rockPlayer").classList.add("btn-enable");
+
+  document.getElementById("paperPlayer").disabled = false;
+  document.getElementById("paperPlayer").classList.remove("btn-disable");
+  document.getElementById("paperPlayer").classList.add("btn-enable");
+
+  document.getElementById("scissorsPlayer").disabled = false;
+  document.getElementById("scissorsPlayer").classList.remove("btn-disable");
+  document.getElementById("scissorsPlayer").classList.add("btn-enable");
 }
