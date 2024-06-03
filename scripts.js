@@ -120,10 +120,6 @@ function getComputerChoice() {
 }
 
 function getRoundWinner(playerChoice, computerChoice) {
-  console.log(`Player Chose: ${playerChoice}`);
-  console.log(`Computer Chose: ${computerChoice}`);
-  console.log(`--------------------------------`);
-
   if (
     (computerChoice === "rock" && playerChoice === "scissors") ||
     (computerChoice === "paper" && playerChoice === "rock") ||
@@ -160,10 +156,6 @@ function getRoundWinner(playerChoice, computerChoice) {
 }
 
 function checkGameWinner() {
-  console.log(`Computer wins: ${computerWins}`);
-  console.log(`Player wins: ${playerWins}`);
-  console.log(`--------------------------------`);
-
   if (computerWins >= 5) {
     document.getElementById("gameState").textContent = "Computer Wins";
 
