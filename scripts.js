@@ -1,107 +1,188 @@
 let computerChoice = "";
 let playerChoice = "";
-const winners = [];
+let playerWins = 0;
+let computerWins = 0;
+let tiesWins = 0;
 
-function getPlayerChoice() {
-  const rock = document.querySelector("#rockPlayer");
-  rock.addEventListener("click", () => {
-    playerChoice = "rock";
+const playerButtons = ["rockPlayer", "paperPlayer", "scissorsPlayer"];
+const computerButtons = ["rockComputer", "paperComputer", "scissorsComputer"];
+
+function game() {
+  document.getElementById("gameState").textContent = "Play";
+  document.getElementById("gameControl").textContent = "Reset";
+
+  document.getElementById("computerRoundWins").textContent = 0;
+  computerWins = 0;
+
+  document.getElementById("playerRoundWins").textContent = 0;
+  playerWins = 0;
+
+  document.getElementById("tiesRoundWins").textContent = 0;
+  tiesWins = 0;
+
+  playerButtons.forEach((id) => {
+    const button = document.getElementById(id);
+    button.classList.remove("btn-disable");
+    button.classList.add("btn-enable");
+
+    button.classList.remove("btn-active");
+    button.classList.add("btn");
+
+    button.disabled = false;
   });
 
-  const paper = document.querySelector("#paperPlayer");
-  paper.addEventListener("click", () => {
-    playerChoice = "paper";
-  });
-
-  const scissors = document.querySelector("#scissorsPlayer");
-  scissors.addEventListener("click", () => {
-    playerChoice = "scissors";
+  computerButtons.forEach((id) => {
+    const button = document.getElementById(id);
+    button.classList.remove("btn-active");
+    button.classList.add("btn");
   });
 }
 
+document.getElementById("rockPlayer").addEventListener("click", () => {
+  playerChoice = "rock";
+  getRoundWinner(playerChoice, getComputerChoice());
+
+  playerButtons.forEach((id) => {
+    const button = document.getElementById(id);
+
+    button.classList.remove("btn-active");
+    button.classList.add("btn");
+  });
+
+  const playerRock = document.getElementById("rockPlayer");
+  playerRock.classList.remove("btn");
+  playerRock.classList.add("btn-active");
+
+  return playerChoice;
+});
+
+document.getElementById("paperPlayer").addEventListener("click", () => {
+  playerChoice = "paper";
+  getRoundWinner(playerChoice, getComputerChoice());
+
+  playerButtons.forEach((id) => {
+    const button = document.getElementById(id);
+
+    button.classList.remove("btn-active");
+    button.classList.add("btn");
+  });
+
+  const playerPaper = document.getElementById("paperPlayer");
+  playerPaper.classList.remove("btn");
+  playerPaper.classList.add("btn-active");
+
+  return playerChoice;
+});
+
+document.getElementById("scissorsPlayer").addEventListener("click", () => {
+  playerChoice = "scissors";
+  getRoundWinner(playerChoice, getComputerChoice());
+
+  playerButtons.forEach((id) => {
+    const button = document.getElementById(id);
+
+    button.classList.remove("btn-active");
+    button.classList.add("btn");
+  });
+
+  const playerScissors = document.getElementById("scissorsPlayer");
+  playerScissors.classList.remove("btn");
+  playerScissors.classList.add("btn-active");
+
+  return playerChoice;
+});
+
 function getComputerChoice() {
+  computerButtons.forEach((id) => {
+    const button = document.getElementById(id);
+    button.classList.remove("btn-active");
+    button.classList.add("btn");
+  });
+
   num = Math.floor(Math.random() * 3) + 1;
   if (num === 1) {
     computerChoice = "rock";
+    const computerRock = document.getElementById("rockComputer");
+    computerRock.classList.remove("btn");
+    computerRock.classList.add("btn-active");
   } else if (num === 2) {
     computerChoice = "paper";
+    const computerPaper = document.getElementById("paperComputer");
+    computerPaper.classList.remove("btn");
+    computerPaper.classList.add("btn-active");
   } else {
     computerChoice = "scissors";
+    const computerScissors = document.getElementById("scissorsComputer");
+    computerScissors.classList.remove("btn");
+    computerScissors.classList.add("btn-active");
   }
   return computerChoice;
 }
 
-function checkWinner(choiceP, choiceC) {
+function getRoundWinner(playerChoice, computerChoice) {
+  console.log(`Player Chose: ${playerChoice}`);
+  console.log(`Computer Chose: ${computerChoice}`);
+  console.log(`--------------------------------`);
+
   if (
-    (choiceC === "rock" && choiceP === "scissors") ||
-    (choiceC === "paper" && choiceP === "rock") ||
-    (choiceC === "scissors" && choiceP === "paper")
+    (computerChoice === "rock" && playerChoice === "scissors") ||
+    (computerChoice === "paper" && playerChoice === "rock") ||
+    (computerChoice === "scissors" && playerChoice === "paper")
   ) {
+    const computerWinElement = document.getElementById("computerRoundWins");
+    computerWins = parseInt(computerWinElement.textContent);
+    computerWinElement.textContent = computerWins += 1;
+
+    checkGameWinner(computerWins, playerWins);
+
     return "Computer";
   } else if (
-    (choiceP === "rock" && choiceC === "scissors") ||
-    (choiceP === "paper" && choiceC === "rock") ||
-    (choiceP === "scissors" && choiceC === "paper")
+    (playerChoice === "rock" && computerChoice === "scissors") ||
+    (playerChoice === "paper" && computerChoice === "rock") ||
+    (playerChoice === "scissors" && computerChoice === "paper")
   ) {
+    const playerWinElement = document.getElementById("playerRoundWins");
+    playerWins = parseInt(playerWinElement.textContent);
+    playerWinElement.textContent = playerWins += 1;
+
+    checkGameWinner(computerWins, playerWins);
+
     return "Player";
   } else {
+    const tiesWinElement = document.getElementById("tiesRoundWins");
+    tiesWins = parseInt(tiesWinElement.textContent);
+    tiesWinElement.textContent = tiesWins += 1;
+
+    checkGameWinner(computerWins, playerWins);
+
     return "Tie";
   }
 }
 
-function playRound(round) {
-  getPlayerChoice();
-  getComputerChoice();
-  const winner = checkWinner(playerChoice, computerChoice);
-  winners.push(winner);
-  logRounds(playerChoice, computerChoice, winner, round);
-}
+function checkGameWinner() {
+  console.log(`Computer wins: ${computerWins}`);
+  console.log(`Player wins: ${playerWins}`);
+  console.log(`--------------------------------`);
 
-function logRounds(playerChoice, computerChoice, winner, round) {
-  console.log("Round:", round);
-  console.log("Player chose:", playerChoice);
-  console.log("Computer chose:", computerChoice);
-  if (winner === "Player") {
-    console.log("Player Wins");
-  } else if (winner === "Computer") {
-    console.log("Computer Wins");
-  } else {
-    console.log("Tie");
+  if (computerWins >= 5) {
+    document.getElementById("gameState").textContent = "Computer Wins";
+
+    playerButtons.forEach((id) => {
+      const button = document.getElementById(id);
+      button.classList.remove("btn-enable");
+      button.classList.add("btn-disable");
+      button.disabled = true;
+    });
+  } else if (playerWins >= 5) {
+    document.getElementById("gameState").textContent = "Player Wins";
+
+    playerButtons.forEach((id) => {
+      const button = document.getElementById(id);
+      button.classList.remove("btn-enable");
+      button.classList.add("btn-disable");
+      button.disabled = true;
+    });
   }
-  console.log("----------------------------------");
-}
-
-function logWins() {
-  let playerWins = winners.filter((item) => item == "Player").length;
-  let computerWins = winners.filter((item) => item == "Computer").length;
-  let ties = winners.filter((item) => item == "Tie").length;
-
-  console.log("Results:");
-  console.log("Player wins:", playerWins);
-  console.log("Computer wins:", computerWins);
-  console.log("Ties:", ties);
-}
-
-function game() {
-  unlock();
-  for (i = 1; i <= 5; i++) {
-    playRound(i);
-  }
-  logWins();
 }
 
 document.getElementById("gameControl").addEventListener("click", game);
-
-function unlock() {
-  document.getElementById("rockPlayer").disabled = false;
-  document.getElementById("rockPlayer").classList.remove("btn-disable");
-  document.getElementById("rockPlayer").classList.add("btn-enable");
-
-  document.getElementById("paperPlayer").disabled = false;
-  document.getElementById("paperPlayer").classList.remove("btn-disable");
-  document.getElementById("paperPlayer").classList.add("btn-enable");
-
-  document.getElementById("scissorsPlayer").disabled = false;
-  document.getElementById("scissorsPlayer").classList.remove("btn-disable");
-  document.getElementById("scissorsPlayer").classList.add("btn-enable");
-}

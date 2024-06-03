@@ -70,6 +70,18 @@ span {
   margin-bottom: 1rem;
 }
 
+.btn-active {
+  display: inline-block;
+  padding: 0.5em 0.5em;
+  background: var(--clr-accent);
+  color: var(--clr-light);
+  text-decoration: none;
+  font-weight: var(--fw-bold);
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 1rem;
+}
+
 .btn-disable {
   cursor: not-allowed;
 }
