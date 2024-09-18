@@ -4,4 +4,4 @@ A simple rock paper scissors game
 
 ## Demo
 
-[Podcast](https://astonishing-croissant-a2ad1b.netlify.app/)
+[Rock-Paper-Scissors](https://astonishing-croissant-a2ad1b.netlify.app/)
